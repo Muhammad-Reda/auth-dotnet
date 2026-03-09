@@ -6,8 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-<<<<<<< Updated upstream
-=======
   <ItemGroup>
     <Folder Include="Dto\Profiles\" />
     <Folder Include="Endpoints\" />
@@ -26,5 +24,4 @@
     </PackageReference>
   </ItemGroup>
 
->>>>>>> Stashed changes
 </Project>
