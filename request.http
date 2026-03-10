@@ -16,12 +16,12 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5062/user/ade200a5-b50e-441e-bef0-bac122e251dc
+PUT http://localhost:5062/user/8a672ab7-90eb-405a-a1f4-b96dd668c711
 Content-Type: application/json
 
 {
     "username": "redha User",
-    "email": "a@email.com",
+    "email": "redhauser@email.com",
     "password": "pass12345",
     "role": "User"
 }
