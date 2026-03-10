@@ -1,5 +1,6 @@
 using backend.Data;
 using backend.Endpoints;
+using backend.Utility;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
