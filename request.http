@@ -1,0 +1,59 @@
+# User
+GET http://localhost:5062/user
+
+###
+GET http://localhost:5062/user/8a672ab7-90eb-405a-a1f4-b96dd668c711
+
+###
+POST http://localhost:5062/user
+Content-Type: application/json
+
+{
+    "username": "redha User",
+    "email": "redhauser@email.com",
+    "password": "pass12345",
+    "role": "User"
+}
+
+###
+PUT http://localhost:5062/user/8a672ab7-90eb-405a-a1f4-b96dd668c711
+Content-Type: application/json
+
+{
+    "username": "redha User",
+    "email": "redhauser@email.com",
+    "password": "pass12345",
+    "role": "User"
+}
+
+###
+DELETE http://localhost:5062/user/2fc260a1-810c-4679-a390-9ffe5e3f4b04
+
+
+
+# Profile
+###
+GET http://localhost:5062/profile/8f7837a7-63fc-4268-a182-c54c71d75e1b
+
+###
+POST http://localhost:5062/profile/8f7837a7-63fc-4268-a182-c54c71d75e1b
+Content-Type: application/json
+
+{
+    "fullName": "Muhammad Reda",
+    "age": 23
+}
+
+###
+PUT http://localhost:5062/profile/8f7837a7-63fc-4268-a182-c54c71d75e1b
+Content-Type: application/json
+
+{
+    "fullName": "Muhammad Reda",
+    "age": 23,
+    "phone": "+6285176981101",
+    "address": "Pekanbaru"
+}
+
+###
+DELETE http://localhost:5062/profile/8f7837a7-63fc-4268-a182-c54c71d75e1b
