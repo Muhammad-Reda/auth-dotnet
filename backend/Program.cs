@@ -9,14 +9,20 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+// Global exceptions handler
+builder.Services.AddExceptionHandler<GlobalExceptionsHandler>();
+builder.Services.AddProblemDetails();
+
 builder.AddBackend();
 var app = builder.Build();
-
 
 app.MapGet("/hello", () => "Hello World!");
 
 // Database Migration
 app.MigrateDb();
+
+// Exception handler
+app.UseExceptionHandler();
 
 // Map Endpoints
 app.MapUserEndpoints();

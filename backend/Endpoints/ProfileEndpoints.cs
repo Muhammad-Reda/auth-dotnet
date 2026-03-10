@@ -1,5 +1,6 @@
 using backend.Data;
 using backend.Dto.Profiles;
+using backend.Exceptions;
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,13 +16,10 @@ public static class ProfileEndpoints
         group.MapGet("/{id}", async (Guid id, ApplicationDbContext dbContext) =>
         {
             // Check if user exist
-            var userExist = await dbContext.Users.FindAsync(id);
-            if (userExist is null) return Results.NotFound(new { message = "User not found" });
+            var userExist = await dbContext.Users.FindAsync(id) ?? throw new NotFoundException("User not found");
 
-            // Check if profile exist
-            var profileExist = await dbContext.Profiles.FindAsync(id);
-            if (profileExist is null) return Results.NotFound(new { message = "Profile not found" });
-
+            // Check is profile exist
+            var profileExist = await dbContext.Profiles.FindAsync(id) ?? throw new NotFoundException("Profile not found");
             ProfileDetailsDto profile = new(
                 Id: profileExist.Id,
                 FullName: profileExist.FullName,
@@ -40,12 +38,11 @@ public static class ProfileEndpoints
         group.MapPost("/{userId}", async (Guid userId, CreateProfileDto newData, ApplicationDbContext dbContext) =>
         {
             // Check is user exist
-            var userExist = await dbContext.Users.FindAsync(userId);
-            if (userExist is null) return Results.NotFound(new { message = "User not found" });
+            var userExist = await dbContext.Users.FindAsync(userId) ?? throw new NotFoundException("User not found");
 
             // Check is profile exist
             var profileExist = await dbContext.Profiles.FindAsync(userId);
-            if (profileExist is not null) return Results.Conflict(new { message = "Profile already existed" });
+            if (profileExist is not null) throw new ConflictException("Profile already existed");
 
             Profile profile = new()
             {
@@ -77,12 +74,10 @@ public static class ProfileEndpoints
         group.MapPut("/{id}", async (Guid id, UpdateProfileDto newData, ApplicationDbContext dbContext) =>
         {
             // Check is user exist
-            var userExist = await dbContext.Users.FindAsync(id);
-            if (userExist is null) return Results.NotFound(new { message = "User not found" });
+            var userExist = await dbContext.Users.FindAsync(id) ?? throw new NotFoundException("User not found");
 
             // Check is profile exist
-            var profileExist = await dbContext.Profiles.FindAsync(id);
-            if (profileExist is null) return Results.NotFound(new { message = "Profile not found" });
+            var profileExist = await dbContext.Profiles.FindAsync(id) ?? throw new NotFoundException("Profile not found");
 
             await dbContext.Profiles
                             .Where(p => p.Id == id)
@@ -100,12 +95,10 @@ public static class ProfileEndpoints
         group.MapDelete("/{id}", async (Guid id, ApplicationDbContext dbContext) =>
         {
             // Check is user exist
-            var userExist = await dbContext.Users.FindAsync(id);
-            if (userExist is null) return Results.NotFound(new { message = "User not found" });
+            var userExist = await dbContext.Users.FindAsync(id) ?? throw new NotFoundException("User not found");
 
             // Check is profile exist
-            var profileExist = await dbContext.Profiles.FindAsync(id);
-            if (profileExist is null) return Results.NotFound(new { message = "Profile not found" });
+            var profileExist = await dbContext.Profiles.FindAsync(id) ?? throw new NotFoundException("Profile not found");
 
             await dbContext.Profiles
                             .Where(p => p.Id == id)

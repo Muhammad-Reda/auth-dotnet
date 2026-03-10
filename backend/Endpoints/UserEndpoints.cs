@@ -1,5 +1,6 @@
 using backend.Data;
 using backend.Dto.Users;
+using backend.Exceptions;
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,8 +25,7 @@ public static class UserEndpoints
         // Get a user
         group.MapGet("/{id}", async (Guid id, ApplicationDbContext dbContext) =>
         {
-            var userExist = await dbContext.Users.FindAsync(id);
-            if (userExist is null) return Results.NotFound(new { message = "User not found" });
+            var userExist = await dbContext.Users.FindAsync(id) ?? throw new NotFoundException("User not found");
 
             UserDetailsDto userDeatils = new(
                 userExist.Id,
@@ -41,8 +41,11 @@ public static class UserEndpoints
         });
 
         // Create new user
-        group.MapPost("/", async (CreateUserDto newData, ApplicationDbContext dbContent) =>
+        group.MapPost("/", async (CreateUserDto newData, ApplicationDbContext dbContext) =>
         {
+            var userExist = await dbContext.Users.AnyAsync(u => u.Email == newData.Email || u.Username == newData.Username);
+            if (userExist) throw new ConflictException("User already exist");
+
             var passwordHashed = BCrypt.Net.BCrypt.HashPassword(newData.Password);
 
             User user = new()
@@ -53,8 +56,8 @@ public static class UserEndpoints
                 Role = newData.Role
             };
 
-            await dbContent.AddAsync(user);
-            await dbContent.SaveChangesAsync();
+            await dbContext.AddAsync(user);
+            await dbContext.SaveChangesAsync();
 
             UserDetailsDto userDto = new(
                 user.Id,
@@ -73,13 +76,10 @@ public static class UserEndpoints
         // Update a user
         group.MapPut("/{id}", async (Guid id, UpdateUserDto newData, ApplicationDbContext dbContext) =>
         {
-            var userExist = await dbContext.Users.FindAsync(id);
-            if (userExist is null) return Results.NotFound(new { message = "User not found" });
+            var userExist = await dbContext.Users.FindAsync(id) ?? throw new NotFoundException("User not found");
 
-            var emailExist = await dbContext.Users.AnyAsync(u => u.Email == newData.Email);
-            if (emailExist) return Results.Conflict(new { message = "Email already exist" });
-            var usernamelExist = await dbContext.Users.AnyAsync(u => u.Username == newData.Username);
-            if (usernamelExist) return Results.Conflict(new { message = "Username already exist" });
+            var isExist = await dbContext.Users.AnyAsync(u => u.Email == newData.Email || u.Username == newData.Username);
+            if (isExist) throw new ConflictException("Email or Username already taken");
 
             await dbContext.Users
                             .Where(u => u.Id == id)
@@ -95,8 +95,7 @@ public static class UserEndpoints
         // Delete a user
         group.MapDelete("/{id}", async (Guid id, ApplicationDbContext dbContext) =>
         {
-            var userExist = await dbContext.Users.FindAsync(id);
-            if (userExist is null) return Results.NotFound(new { message = "User not found" });
+            var userExist = await dbContext.Users.FindAsync(id) ?? throw new NotFoundException("User not found");
 
             await dbContext.Users
                             .Where(u => u.Id == id)
