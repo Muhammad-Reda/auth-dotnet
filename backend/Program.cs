@@ -1,12 +1,5 @@
-<<<<<<< Updated upstream
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
-
-app.MapGet("/", () => "Hello World!");
-=======
 using backend.Data;
 using backend.Endpoints;
-using backend.Utility;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +16,6 @@ builder.Services.AddProblemDetails();
 builder.AddBackend();
 var app = builder.Build();
 
-
 app.MapGet("/hello", () => "Hello World!");
 
 // Database Migration
@@ -35,6 +27,5 @@ app.UseExceptionHandler();
 // Map Endpoints
 app.MapUserEndpoints();
 app.MapProfileEndpoints();
->>>>>>> Stashed changes
 
 app.Run();
