@@ -16,6 +16,7 @@ public static class UserEndpoints
         group.MapGet("/", async (ApplicationDbContext dbContext) =>
         {
             var data = await dbContext.Users
+                                .OrderByDescending(user => user.CreatedAt)
                                 .Select(user => new UserDetailsDto(user.Id, user.Email, user.Username, user.Role, user.IsDeleted, user.CreatedAt, user.UpdatedAt, user.DeletedAt))
                                 .AsNoTracking()
                                 .ToListAsync();
@@ -53,7 +54,7 @@ public static class UserEndpoints
                 Username = newData.Username,
                 Email = newData.Email,
                 PasswordHash = passwordHashed,
-                Role = newData.Role
+                Role = newData.Role ?? throw new BadHttpRequestException("Role field is required")
             };
 
             await dbContext.AddAsync(user);

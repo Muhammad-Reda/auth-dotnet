@@ -2,11 +2,12 @@ using backend.Models;
 
 namespace backend.Dto.Users;
 
-public record UserDetailsDto
+public record AllUserDataDto
 (
     Guid Id,
-    string Username,
     string Email,
+    string Username,
+    string PasswordHash,
     User.UserRole Role,
     bool IsDeleted,
     DateTime CreatedAt,
