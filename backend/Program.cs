@@ -65,5 +65,6 @@ app.MapUserEndpoints();
 
 // Profile
 app.MapProfileEndpoints();
+app.MapAuthEndpoints();
 
 app.Run();
