@@ -9,10 +9,9 @@ POST http://localhost:5062/user
 Content-Type: application/json
 
 {
-    "username": "redha User",
-    "email": "redhauser@email.com",
-    "password": "pass12345",
-    "role": "User"
+    "username": "redha Uaaser",
+    "email": "redhaussdfer@email.com",
+    "password": "pass12345"
 }
 
 ###
@@ -56,4 +55,25 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5062/profile/a73abccd-c7c9-466a-b5b4-d10d29beab69
+DELETE http://localhost:5062/profile/8f7837a7-63fc-4268-a182-c54c71d75e1b
+
+
+# Auth
+###
+POST http://localhost:5062/auth/login
+Content-Type: application/json
+
+{
+    "username": "redha User",
+    "password": "pass12345"
+}
+
+###
+POST http://localhost:5062/auth/register
+Content-Type: application/json
+
+{
+    "username": "redha User baruaaaa",
+    "email": "redhauserbaruaaa@email.com",
+    "password": "pass12345"
+}

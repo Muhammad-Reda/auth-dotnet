@@ -28,5 +28,6 @@ app.UseExceptionHandler();
 // Map Endpoints
 app.MapUserEndpoints();
 app.MapProfileEndpoints();
+app.MapAuthEndpoints();
 
 app.Run();
