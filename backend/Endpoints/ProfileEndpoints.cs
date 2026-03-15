@@ -1,4 +1,4 @@
-using backend.Data;
+using backend.Extensions;
 using backend.Dto.Profiles;
 using backend.Exceptions;
 using backend.Models;
@@ -10,7 +10,7 @@ public static class ProfileEndpoints
 {
     public static void MapProfileEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup("/profile");
+        var group = app.MapGroup("/profile").RequireAuthorization();
 
         // Get user's profile
         group.MapGet("/{id}", async (Guid id, ApplicationDbContext dbContext) =>

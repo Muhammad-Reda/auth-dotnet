@@ -1,16 +1,44 @@
-# User
-GET http://localhost:5062/user
-
-###
-GET http://localhost:5062/user/a73abccd-c7c9-466a-b5b4-d10d29beab69
-
-###
-POST http://localhost:5062/user
+#Auth
+#Login
+# @name login
+POST http://localhost:5062/auth/login
 Content-Type: application/json
 
 {
     "username": "redha User",
-    "email": "redhauser@email.com",
+    "password": "pass12345"
+}
+
+###
+#Refresh token
+POST http://localhost:5062/auth/refresh
+Cookie: {{login.response.headers.Set-Cookie}}
+
+
+###
+#Logout
+PUT http://localhost:5062/auth/logout
+Cookie: {{login.response.headers.Set-Cookie}}
+
+
+###
+# User
+GET http://localhost:5062/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
+
+
+###
+GET http://localhost:5062/user/92e7cf60-ba85-43f3-b097-cb2437c8d4bd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
+
+###
+POST http://localhost:5062/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
+
+{
+    "username": "redha Usera",
+    "email": "redhausera@email.com",
     "password": "pass12345",
     "role": "User"
 }
@@ -18,6 +46,7 @@ Content-Type: application/json
 ###
 PUT http://localhost:5062/user/a73abccd-c7c9-466a-b5b4-d10d29beab69
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
 
 {
     "username": "redha User",
@@ -28,16 +57,20 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5062/user/2fc260a1-810c-4679-a390-9ffe5e3f4b04
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
 
 
 
 # Profile
 ###
-GET http://localhost:5062/profile/a73abccd-c7c9-466a-b5b4-d10d29beab69
+GET http://localhost:5062/profile/92e7cf60-ba85-43f3-b097-cb2437c8d4bd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
+
 
 ###
-POST http://localhost:5062/profile/a73abccd-c7c9-466a-b5b4-d10d29beab69
+POST http://localhost:5062/profile/92e7cf60-ba85-43f3-b097-cb2437c8d4bd
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
 
 {
     "fullName": "Muhammad Reda",
@@ -45,8 +78,9 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5062/profile/a73abccd-c7c9-466a-b5b4-d10d29beab69
+PUT http://localhost:5062/profile/92e7cf60-ba85-43f3-b097-cb2437c8d4bd
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
 
 {
     "fullName": "Muhammad Reda",
@@ -56,4 +90,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5062/profile/a73abccd-c7c9-466a-b5b4-d10d29beab69
+DELETE http://localhost:5062/profile/92e7cf60-ba85-43f3-b097-cb2437c8d4bd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
