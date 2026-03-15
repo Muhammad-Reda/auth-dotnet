@@ -13,7 +13,7 @@ public static class DataExtensions
 
     public static void AddBackend(this WebApplicationBuilder builder)
     {
-        var connectionString = builder.Configuration["Auth:ConnectionStrings"];
+        var connectionString = builder.Configuration["Auth:SqlServerConnection"];
         builder.Services.AddSqlServer<ApplicationDbContext>(
             connectionString
         );

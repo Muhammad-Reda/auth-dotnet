@@ -2,7 +2,7 @@
 GET http://localhost:5062/user
 
 ###
-GET http://localhost:5062/user/8a672ab7-90eb-405a-a1f4-b96dd668c711
+GET http://localhost:5062/user/a73abccd-c7c9-466a-b5b4-d10d29beab69
 
 ###
 POST http://localhost:5062/user
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5062/user/8a672ab7-90eb-405a-a1f4-b96dd668c711
+PUT http://localhost:5062/user/a73abccd-c7c9-466a-b5b4-d10d29beab69
 Content-Type: application/json
 
 {
@@ -32,10 +32,10 @@ DELETE http://localhost:5062/user/2fc260a1-810c-4679-a390-9ffe5e3f4b04
 
 # Profile
 ###
-GET http://localhost:5062/profile/8f7837a7-63fc-4268-a182-c54c71d75e1b
+GET http://localhost:5062/profile/a73abccd-c7c9-466a-b5b4-d10d29beab69
 
 ###
-POST http://localhost:5062/profile/8f7837a7-63fc-4268-a182-c54c71d75e1b
+POST http://localhost:5062/profile/a73abccd-c7c9-466a-b5b4-d10d29beab69
 Content-Type: application/json
 
 {
@@ -44,7 +44,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5062/profile/8f7837a7-63fc-4268-a182-c54c71d75e1b
+PUT http://localhost:5062/profile/a73abccd-c7c9-466a-b5b4-d10d29beab69
 Content-Type: application/json
 
 {
