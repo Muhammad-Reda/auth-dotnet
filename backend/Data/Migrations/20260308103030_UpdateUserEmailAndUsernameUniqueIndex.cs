@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace backend.Data.Migrations
+namespace backend.Extensions.Migrations
 {
     /// <inheritdoc />
     public partial class UpdateUserEmailAndUsernameUniqueIndex : Migration

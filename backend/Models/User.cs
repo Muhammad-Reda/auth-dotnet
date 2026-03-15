@@ -23,4 +23,5 @@ public class User
     public DateTime UpdatedAt { get; set; }
     public DateTime DeletedAt { get; set; }
     public Profile? Profile { get; set; }
+    public ICollection<RefreshToken>? RefreshToken { get; set; }
 }
