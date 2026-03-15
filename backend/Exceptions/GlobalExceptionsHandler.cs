@@ -1,9 +1,8 @@
-using backend.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Utility;
+namespace backend.Exceptions;
 
 public class GlobalExceptionsHandler : IExceptionHandler
 {

@@ -1,4 +1,4 @@
-using backend.Data;
+using backend.Extensions;
 using backend.Dto.Users;
 using backend.Exceptions;
 using backend.Models;
@@ -10,7 +10,7 @@ public static class UserEndpoints
 {
     public static void MapUserEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup("/user");
+        var group = app.MapGroup("/user").RequireAuthorization();
 
         // Get all users
         group.MapGet("/", async (ApplicationDbContext dbContext) =>

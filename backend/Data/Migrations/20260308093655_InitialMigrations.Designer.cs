@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using backend.Data;
+using backend.Extensions;
 
 #nullable disable
 
-namespace backend.Data.Migrations
+namespace backend.Extensions.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20260308093655_InitialMigrations")]

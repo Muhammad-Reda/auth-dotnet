@@ -1,12 +1,13 @@
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Data;
+namespace backend.Extensions;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     public DbSet<User> Users => Set<User>();
     public DbSet<Profile> Profiles => Set<Profile>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,6 +23,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .HasOne(u => u.Profile)
             .WithOne(p => p.User)
             .HasForeignKey<Profile>(u => u.Id)
+            .IsRequired();
+
+        modelBuilder.Entity<RefreshToken>()
+            .HasOne(u => u.User)
+            .WithMany(r => r.RefreshToken)
+            .HasForeignKey(u => u.UserId)
             .IsRequired();
     }
 }
