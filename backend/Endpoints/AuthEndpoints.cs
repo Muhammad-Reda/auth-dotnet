@@ -4,9 +4,7 @@ using backend.Exceptions;
 using backend.Extensions;
 using backend.Models;
 using backend.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace backend.Endpoints;
 
@@ -33,7 +31,7 @@ public static class AuthEndpoints
 
             var accessToken = jwt.GenerateToken(user.Id, user.Email, user.Role.ToString());
             var refreshToken = jwt.GenerateRefreshToken();
-            var refreshTokenExpiresAt = DateTime.UtcNow.AddDays(30);
+            var refreshTokenExpiresAt = DateTime.UtcNow.AddDays(7);
 
             RefreshToken newRefreshToken = new()
             {
