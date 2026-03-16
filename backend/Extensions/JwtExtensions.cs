@@ -41,7 +41,5 @@ public static class JwtExtensions
                         NameClaimType = JwtRegisteredClaimNames.Sub
                     };
                 });
-
-
     }
 }

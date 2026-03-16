@@ -18,6 +18,7 @@ public class JwtService(IOptions<JwtOptions> jwtOptions) : IJwtService
 {
     private readonly JwtOptions _jwtOptions = jwtOptions.Value;
 
+    /* Generating acces token */
     public string GenerateToken(Guid UserId, string email, string role)
     {
         var secretKey = Encoding.UTF8.GetBytes(_jwtOptions.Key!);
