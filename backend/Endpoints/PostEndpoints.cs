@@ -4,6 +4,7 @@ using backend.Data;
 using backend.Dto.Posts;
 using backend.Exceptions;
 using backend.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Endpoints;
@@ -15,9 +16,24 @@ public static class PostEndpoints
         var group = app.MapGroup("/post").RequireAuthorization();
 
         // Get All Posts
-        group.MapGet("/", async (ApplicationDbContext dbContext) =>
+        group.MapGet("/", async (HttpContext context, ApplicationDbContext dbContext) =>
         {
+            var pageQuery = context.Request.Query["page"];
+            var pageSizeQuery = context.Request.Query["pageSize"];
+
+            var pageSize = string.IsNullOrEmpty(pageSizeQuery) || string.IsNullOrWhiteSpace(pageSizeQuery) ? 5 : int.Parse(pageSizeQuery!);
+            var page = string.IsNullOrEmpty(pageQuery) || string.IsNullOrWhiteSpace(pageQuery) ? 1 : int.Parse(pageQuery!);
+
+            page = page < 1 ? 1 : page;
+            pageSize = pageSize > 100 ? 100 : pageSize;
+
+            var totalPost = await dbContext.Posts.CountAsync();
+            var totalPage = totalPost % pageSize != 0 ? (totalPost / pageSize) + 1 : totalPost / pageSize;
+
             var posts = await dbContext.Posts
+                                        .OrderByDescending(p => p.Date)
+                                        .Skip((page - 1) * pageSize)
+                                        .Take(pageSize)
                                         .Select(post => new PostDto(post.Id,
                                                                     post.ProfileId,
                                                                     post.Content,
@@ -30,7 +46,7 @@ public static class PostEndpoints
                                         .AsNoTracking()
                                         .ToListAsync();
 
-            return Results.Ok(new { data = posts });
+            return Results.Ok(new { data = posts, totalPost, page, pageSize, totalPage });
         });
 
         // Get a post
@@ -93,6 +109,57 @@ public static class PostEndpoints
             );
 
             return Results.Ok(new { message = "Post updated", data = postDto });
+        });
+
+        // UpVote a post
+        group.MapPost("/upvote/{id}", async (Guid id, ApplicationDbContext dbContext) =>
+        {
+            var post = await dbContext.Posts.FindAsync(id) ?? throw new NotFoundException("Post not found");
+            var upvoteCount = await dbContext.Posts.Where(p => p.Id == id).Select(p => p.UpVote).SingleAsync();
+
+            await dbContext.Posts
+                            .Where(p => p.Id == id)
+                            .ExecuteUpdateAsync(setters => setters
+                                .SetProperty(p => p.UpVote, upvoteCount + 1));
+
+            PostDto postDto = new(
+                post.Id,
+                post.ProfileId,
+                post.Content,
+                post.Date,
+                post.UpVote += 1,
+                post.DownVote,
+                post.IsDeleted,
+                post.DeletedAt
+            );
+
+            return Results.Ok(new { message = "Upvoted", data = postDto });
+        });
+
+
+        // DownVote a post
+        group.MapPost("/downvote/{id}", async (Guid id, ApplicationDbContext dbContext) =>
+        {
+            var post = await dbContext.Posts.FindAsync(id) ?? throw new NotFoundException("Post not found");
+            var downVoteCount = await dbContext.Posts.Where(p => p.Id == id).Select(p => p.DownVote).SingleAsync();
+
+            await dbContext.Posts
+                            .Where(p => p.Id == id)
+                            .ExecuteUpdateAsync(setters => setters
+                                .SetProperty(p => p.DownVote, downVoteCount + 1));
+
+            PostDto postDto = new(
+                post.Id,
+                post.ProfileId,
+                post.Content,
+                post.Date,
+                post.UpVote,
+                post.DownVote += 1,
+                post.IsDeleted,
+                post.DeletedAt
+            );
+
+            return Results.Ok(new { message = "DownVoted", data = postDto });
         });
 
         // Delete a post
