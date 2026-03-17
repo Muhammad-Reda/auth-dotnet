@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using backend.Extensions;
 using backend.Data;
 
 #nullable disable
@@ -13,8 +12,8 @@ using backend.Data;
 namespace backend.Extensions.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260308101556_UpdateUserAndProfileRelationship")]
-    partial class UpdateUserAndProfileRelationship
+    [Migration("20260316234513_AddPostEntity")]
+    partial class AddPostEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +24,41 @@ namespace backend.Extensions.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("backend.Models.Post", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DownVote")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("ProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UpVote")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Posts");
+                });
 
             modelBuilder.Entity("backend.Models.Profile", b =>
                 {
@@ -58,6 +92,35 @@ namespace backend.Extensions.Migrations
                     b.ToTable("Profiles");
                 });
 
+            modelBuilder.Entity("backend.Models.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("backend.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -72,7 +135,7 @@ namespace backend.Extensions.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -89,11 +152,28 @@ namespace backend.Extensions.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("backend.Models.Post", b =>
+                {
+                    b.HasOne("backend.Models.Profile", "Profile")
+                        .WithMany("Post")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("backend.Models.Profile", b =>
@@ -107,9 +187,27 @@ namespace backend.Extensions.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("backend.Models.RefreshToken", b =>
+                {
+                    b.HasOne("backend.Models.User", "User")
+                        .WithMany("RefreshToken")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("backend.Models.Profile", b =>
+                {
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("backend.Models.User", b =>
                 {
                     b.Navigation("Profile");
+
+                    b.Navigation("RefreshToken");
                 });
 #pragma warning restore 612, 618
         }

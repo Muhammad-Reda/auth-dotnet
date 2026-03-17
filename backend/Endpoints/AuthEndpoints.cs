@@ -1,7 +1,7 @@
+using backend.Data;
 using backend.Dto.Auth;
 using backend.Dto.Users;
 using backend.Exceptions;
-using backend.Extensions;
 using backend.Models;
 using backend.Services;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ namespace backend.Endpoints;
 
 public static class AuthEndpoints
 {
-    public static void MapAuthEndpoits(this WebApplication app)
+    public static void MapAuthEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/auth");
 

@@ -1,0 +1,54 @@
+#Auth
+#Login
+# @name login
+POST http://localhost:5062/auth/login
+Content-Type: application/json
+
+{
+    "username": "redha User",
+    "password": "pass12345"
+}
+
+###
+#Refresh token
+POST http://localhost:5062/auth/refresh
+Cookie: {{login.response.headers.Set-Cookie}}
+
+
+###
+#Logout
+PUT http://localhost:5062/auth/logout
+Cookie: {{login.response.headers.Set-Cookie}}
+
+
+# post
+###
+GET http://localhost:5062/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6IjU0YzhjOWUwLWUzOTAtNGY5Yy1hMTNhLTAyMGZiNzk1NDJmOCIsImV4cCI6MTc3MzcxMTE3NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.YYTI2OvJ0qfgWC-894RqZkJ6Cf0tArODe3NzglVT3tA
+
+
+###
+GET http://localhost:5062/post/98bfa8d4-1048-440c-a322-0afc96dc4807
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6IjdhNGE1NmE0LTZjOGEtNDI0Yi04YzUzLTAzM2FjM2JkZDZlNCIsImV4cCI6MTc3MzcwOTg5MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.4QoLa0199Q0bqb59UHDgMwrJUVRA7pCk9EmktfBEcVM
+
+
+###
+POST http://localhost:5062/post
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6IjdhNGE1NmE0LTZjOGEtNDI0Yi04YzUzLTAzM2FjM2JkZDZlNCIsImV4cCI6MTc3MzcwOTg5MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.4QoLa0199Q0bqb59UHDgMwrJUVRA7pCk9EmktfBEcVM
+
+{
+    "content": "Post pertama"
+}
+
+###
+PUT http://localhost:5062/post/ab9ea47e-0845-434d-93cd-c3834e96da62
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6IjdhNGE1NmE0LTZjOGEtNDI0Yi04YzUzLTAzM2FjM2JkZDZlNCIsImV4cCI6MTc3MzcwOTg5MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.4QoLa0199Q0bqb59UHDgMwrJUVRA7pCk9EmktfBEcVM
+
+{
+    "content": "Updatee"
+}
+
+###
+DELETE http://localhost:5062/post/8f7837a7-63fc-4268-a182-c54c71d75e1b

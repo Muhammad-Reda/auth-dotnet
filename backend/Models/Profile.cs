@@ -11,4 +11,5 @@ public class Profile
     public DateTime UpdatedAt { get; set; }
     public DateTime DeletedAt { get; set; }
     public User User { get; set; } = null!;
+    public ICollection<Post>? Post { get; set; }
 }

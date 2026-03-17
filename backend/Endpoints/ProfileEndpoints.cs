@@ -1,4 +1,4 @@
-using backend.Extensions;
+using backend.Data;
 using backend.Dto.Profiles;
 using backend.Exceptions;
 using backend.Models;
@@ -56,18 +56,7 @@ public static class ProfileEndpoints
             await dbContext.AddAsync(profile);
             await dbContext.SaveChangesAsync();
 
-            ProfileDetailsDto profileDetails = new(
-                profile.Id,
-                profile.FullName,
-                profile.Age,
-                profile.Phone ?? "No phone number",
-                profile.Address ?? "No address",
-                profile.CreatedAt,
-                profile.UpdatedAt,
-                profile.DeletedAt
-            );
-
-            return Results.Ok(new { message = "Profile created", data = profileDetails });
+            return Results.Created();
         });
 
         // Update user's profile

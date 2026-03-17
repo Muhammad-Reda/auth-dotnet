@@ -47,13 +47,15 @@ app.MigrateDb();
 
 /* Map Endpoints */
 // Auth
-app.MapAuthEndpoits();
+app.MapAuthEndpoints();
 
 // User
 app.MapUserEndpoints();
 
 // Profile
 app.MapProfileEndpoints();
-app.MapAuthEndpoints();
+
+// post
+app.MapPostEndpoints();
 
 app.Run();
