@@ -1,4 +1,4 @@
-using backend.Extensions;
+using backend.Data;
 using backend.Dto.Users;
 using backend.Exceptions;
 using backend.Models;
@@ -60,18 +60,7 @@ public static class UserEndpoints
             await dbContext.AddAsync(user);
             await dbContext.SaveChangesAsync();
 
-            UserDetailsDto userDto = new(
-                user.Id,
-                user.Email,
-                user.Username,
-                user.Role,
-                user.IsDeleted,
-                user.CreatedAt,
-                user.UpdatedAt,
-                user.DeletedAt
-            );
-
-            return Results.Ok(new { message = "User created", data = userDto });
+            return Results.Created();
         });
 
         // Update a user

@@ -1,13 +1,14 @@
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Extensions;
+namespace backend.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     public DbSet<User> Users => Set<User>();
     public DbSet<Profile> Profiles => Set<Profile>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+    public DbSet<Post> Posts => Set<Post>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

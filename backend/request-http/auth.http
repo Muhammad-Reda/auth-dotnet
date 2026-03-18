@@ -1,0 +1,21 @@
+#Auth
+#Login
+# @name login
+POST http://localhost:5062/auth/login
+Content-Type: application/json
+
+{
+    "username": "redha User",
+    "password": "pass12345"
+}
+
+###
+#Refresh token
+POST http://localhost:5062/auth/refresh
+Cookie: {{login.response.headers.Set-Cookie}}
+
+
+###
+#Logout
+PUT http://localhost:5062/auth/logout
+Cookie: {{login.response.headers.Set-Cookie}}
