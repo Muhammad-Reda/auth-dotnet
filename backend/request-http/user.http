@@ -20,7 +20,6 @@ Cookie: {{login.response.headers.Set-Cookie}}
 PUT http://localhost:5062/auth/logout
 Cookie: {{login.response.headers.Set-Cookie}}
 
-
 ###
 # User
 GET http://localhost:5062/user
@@ -57,57 +56,3 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2M
 ###
 DELETE http://localhost:5062/user/2fc260a1-810c-4679-a390-9ffe5e3f4b04
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
-
-
-
-# Profile
-###
-GET http://localhost:5062/profile/92e7cf60-ba85-43f3-b097-cb2437c8d4bd
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
-
-
-###
-POST http://localhost:5062/profile/92e7cf60-ba85-43f3-b097-cb2437c8d4bd
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
-
-{
-    "fullName": "Muhammad Reda",
-    "age": 23
-}
-
-###
-PUT http://localhost:5062/profile/92e7cf60-ba85-43f3-b097-cb2437c8d4bd
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MmU3Y2Y2MC1iYTg1LTQzZjMtYjA5Ny1jYjI0MzdjOGQ0YmQiLCJlbWFpbCI6InJlZGhhdXNlckBlbWFpbC5jb20iLCJyb2xlIjoiVXNlciIsImp0aSI6ImYwM2JhNmJlLTg3OTAtNDEzYS05M2QxLTdhNzFkMzA0ODMyNCIsImV4cCI6MTc3MzYwMTU5NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDYyIn0.WdFPs75Ns0WBR3T__MjY1PbhsXtnL0_DBsxDJyhWaNE
-
-{
-    "fullName": "Muhammad Reda",
-    "age": 23,
-    "phone": "+6285176981101",
-    "address": "Pekanbaru"
-}
-
-###
-DELETE http://localhost:5062/profile/8f7837a7-63fc-4268-a182-c54c71d75e1b
-
-
-# Auth
-###
-POST http://localhost:5062/auth/login
-Content-Type: application/json
-
-{
-    "username": "redha User",
-    "password": "pass12345"
-}
-
-###
-POST http://localhost:5062/auth/register
-Content-Type: application/json
-
-{
-    "username": "redha User baruaaaa",
-    "email": "redhauserbaruaaa@email.com",
-    "password": "pass12345"
-}

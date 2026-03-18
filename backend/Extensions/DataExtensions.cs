@@ -1,3 +1,4 @@
+using backend.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Extensions;

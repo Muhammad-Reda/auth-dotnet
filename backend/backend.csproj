@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Dto/Posts/" />
     <Folder Include="Dto\Profiles\" />
     <Folder Include="Endpoints\" />
     <Folder Include="Services/" />

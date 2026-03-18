@@ -12,7 +12,6 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 
 /* JWT */
 builder.AddJwtAuthentication();
-builder.AddAuthorizationPolicy();
 
 // Auth
 builder.Services.AddAuthorization();
@@ -36,16 +35,6 @@ var app = builder.Build();
 
 app.MapGet("/hello", () => "Hello World!");
 
-// Tambahkan endpoint test ini di Program.cs
-app.MapGet("/test-auth", (HttpContext ctx) =>
-{
-    return Results.Ok(new
-    {
-        isAuthenticated = ctx.User.Identity?.IsAuthenticated,
-        claims = ctx.User.Claims.Select(c => new { c.Type, c.Value })
-    });
-}).RequireAuthorization();
-
 // Auth
 app.UseAuthentication();
 app.UseAuthorization();
@@ -58,13 +47,15 @@ app.MigrateDb();
 
 /* Map Endpoints */
 // Auth
-app.MapAuthEndpoits();
+app.MapAuthEndpoints();
 
 // User
 app.MapUserEndpoints();
 
 // Profile
 app.MapProfileEndpoints();
-app.MapAuthEndpoints();
+
+// post
+app.MapPostEndpoints();
 
 app.Run();
